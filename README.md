@@ -30,3 +30,18 @@ For a standard installation please follow the <a href="https://www.odoo.com/docu
 from the documentation.
 
 To learn the software, we recommend the <a href="https://www.odoo.com/slides">Odoo eLearning</a>, or <a href="https://www.odoo.com/page/scale-up-business-game">Scale-up</a>, the <a href="https://www.odoo.com/page/scale-up-business-game">business game</a>. Developers can start with <a href="https://www.odoo.com/documentation/master/developer/howtos.html">the developer tutorials</a>
+
+Odoo Setup :
+1. git clone https://github.com/odoo/odoo.git (version 18)
+2. Download and install python 3.10 then add python folder to path environment
+3. Download and install PostgreSQL 17 then add PostgreSQL bin folder to path environment
+4. python -m pip install --upgrade pip
+5. pip install setuptools wheel
+6. pip install -r requirements.txt
+7. Download and install https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe then add wkhtmltopdf bin folder to path environment
+8. python odoo-bin -i account,crm,sales_management,web_site,stock,purchase,point_of_sales,project,mrp,mass_mailing,hr,hr_expense,hr_holidays,hr_recruitment,data_recycle,maintenance,website_event,calendar,contacts,im_livechat,repair,hr_attendance,mass_mailing_sms,project_todo,hr_skills,hr_contract
+
+Uninstall Module:
+1. python odoo-bin shell
+2. self.env['ir.module.module'].search([('name','=','muk_web_theme')]).button_immediate_uninstall()
+3. exit()
