@@ -39,9 +39,27 @@ Odoo Setup :
 5. pip install setuptools wheel
 6. pip install -r requirements.txt
 7. Download and install https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe then add wkhtmltopdf bin folder to path environment
-8. python odoo-bin -i account,crm,sales_management,web_site,stock,purchase,point_of_sales,project,mrp,mass_mailing,hr,hr_expense,hr_holidays,hr_recruitment,data_recycle,maintenance,website_event,calendar,contacts,im_livechat,repair,hr_attendance,mass_mailing_sms,project_todo,hr_skills,hr_contract
+8. python odoo-bin -i account,account_debit_note,crm,sales_management,web_site,stock,purchase,point_of_sales,project,mrp,mass_mailing,hr,hr_expense,hr_holidays,hr_recruitment,data_recycle,maintenance,website_event,calendar,contacts,im_livechat,repair,hr_attendance,mass_mailing_sms,project_todo,hr_skills,hr_contract,website_google_map,website_blog,website_crm_partner_assign,website_customer,mail_plugin,crm_mail_plugin,project_mail_plugin,auth_oauth,base_geolocalize,base_automation,hr_homeworking,marketing_card,survey
+9. Theme Setup :
+	a. Import module https://apps.odoo.com/apps/modules/18.0/theme_common
+	b. Import module https://apps.odoo.com/apps/themes/18.0/theme_clean
 
 Uninstall Module:
 1. python odoo-bin shell
 2. self.env['ir.module.module'].search([('name','=','muk_web_theme')]).button_immediate_uninstall()
 3. exit()
+
+
+Create DB
+createdb -U postgres iplus_erp
+
+Backup Db
+pg_dump --username=postgres --dbname=iplus_erp_backup --file=C:\Irfan\Projects\IPlus\iplus_erp\odoo_backup.sql --table=hr_* --inserts --column-inserts
+pg_dump --username=postgres --dbname=iplus_erp --file=C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_01-Jan-2025.backup --format=t
+pg_dump -U postgres -d iplus_erp -f C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_v1_02-Jan-2025.backup -F t
+
+Drop DB
+dropdb --username=postgres iplus_erp
+
+Restore DB
+pg_restore --username=postgres --dbname=iplus_erp -1 C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_initial_01-Jan-2025.backup
