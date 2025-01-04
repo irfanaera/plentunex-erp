@@ -49,17 +49,21 @@ Uninstall Module:
 2. self.env['ir.module.module'].search([('name','=','muk_web_theme')]).button_immediate_uninstall()
 3. exit()
 
+Not Tested Yet
+4. psql -U postgres -d iplus_erp -c "UPDATE ir_module_module SET state = 'to remove' WHERE name like 'muk_%'"
+5. openerp-server -u
+
 
 Create DB
 createdb -U postgres iplus_erp
 
 Backup Db
-pg_dump --username=postgres --dbname=iplus_erp_backup --file=C:\Irfan\Projects\IPlus\iplus_erp\odoo_backup.sql --table=hr_* --inserts --column-inserts
-pg_dump --username=postgres --dbname=iplus_erp --file=C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_01-Jan-2025.backup --format=t
+pg_dump -U postgres -d iplus_erp_backup -f C:\Irfan\Projects\IPlus\iplus_erp\odoo_backup.sql --table=hr_* --inserts --column-inserts
+pg_dump -U postgres -d iplus_erp -f C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_01-Jan-2025.backup --format=t
 pg_dump -U postgres -d iplus_erp -f C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_v1_02-Jan-2025.backup -F t
 
 Drop DB
-dropdb --username=postgres iplus_erp
+dropdb -U postgres iplus_erp
 
 Restore DB
-pg_restore --username=postgres --dbname=iplus_erp -1 C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_initial_01-Jan-2025.backup
+pg_restore -U postgres -d iplus_erp -1 C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_initial_01-Jan-2025.backup
