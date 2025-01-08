@@ -39,17 +39,26 @@ Odoo Setup :
 5. pip install setuptools wheel
 6. pip install -r requirements.txt
 7. Download and install https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.msvc2015-win64.exe then add wkhtmltopdf bin folder to path environment
-8. python odoo-bin -i account,account_debit_note,crm,sales_management,web_site,stock,purchase,point_of_sales,project,mrp,mass_mailing,hr,hr_expense,hr_holidays,hr_recruitment,data_recycle,maintenance,website_event,calendar,contacts,im_livechat,repair,hr_attendance,mass_mailing_sms,project_todo,hr_skills,hr_contract,website_google_map,website_blog,website_crm_partner_assign,website_customer,mail_plugin,crm_mail_plugin,project_mail_plugin,auth_oauth,base_geolocalize,base_automation,hr_homeworking,marketing_card,survey
+8. python odoo-bin -i account,account_debit_note,crm,sales_management,web_site,stock,purchase,point_of_sales,project,mrp,mass_mailing,hr,hr_expense,hr_holidays,hr_recruitment,data_recycle,maintenance,website_event,calendar,contacts,im_livechat,repair,hr_attendance,mass_mailing_sms,project_todo,hr_skills,hr_contract,website_google_map,website_blog,website_crm_partner_assign,website_customer,mail_plugin,crm_mail_plugin,project_mail_plugin,auth_oauth,base_geolocalize,base_automation,hr_homeworking,marketing_card,survey,auth_password_policy,hr_timesheet
 9. Theme Setup :
+	9. 1 Theme Clean
 	a. Import module https://apps.odoo.com/apps/modules/18.0/theme_common
 	b. Import module https://apps.odoo.com/apps/themes/18.0/theme_clean
+	9. 2 MUK Backend Theme
+		python odoo-bin -i muk_web_appsbar,muk_web_chatter,muk_web_colors,muk_web_dialog,muk_web_theme
+10. Accounting Setup
+	a. Download https://apps.odoo.com/apps/modules/18.0/base_accounting_kit then extract to addons path
+	b. python odoo-bin -i base_account_budget,base_accounting_kit
+11. Payroll Accounting
+	a. Download https://apps.odoo.com/apps/modules/18.0/om_hr_payroll_account
+	b. python odoo-bin -i om_hr_payroll,om_hr_payroll_account
 
 Uninstall Module:
 1. python odoo-bin shell
 2. self.env['ir.module.module'].search([('name','=','muk_web_theme')]).button_immediate_uninstall()
 3. exit()
 
-Not Tested Yet
+These Next Step Not Completed Tested Yet
 4. psql -U postgres -d iplus_erp -c "UPDATE ir_module_module SET state = 'to remove' WHERE name like 'muk_%'"
 5. openerp-server -u
 
@@ -67,3 +76,16 @@ dropdb -U postgres iplus_erp
 
 Restore DB
 pg_restore -U postgres -d iplus_erp -1 C:\Irfan\Projects\IPlus\iplus_erp\iplus_erp_initial_01-Jan-2025.backup
+
+Installing odoo as Windows Service
+1. Download https://github.com/birkett/srvany-ng/releases then extract
+2. Run cmd as an administrator
+3. sc create IPlusERP binPath= C:\Irfan\Programs\srvany-ng.exe start= auto depend= postgresql-x64-17
+4. Open regedit as an administrator then browse to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IPlusERP
+5. Create a new Key named "Parameters"
+6. In the parameters key:
+	. create a new String value named Application. The value should be the file path to the application you wish to run as a service
+	. create a new String value named AppDirectory. The value should be the odoo folder
+	. create a new String value named AppParameters. Then fill "odoo-bin"
+7. Start service
+8. If web service fail to load web material, then change to odoo windows service account to current user

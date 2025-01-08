@@ -32,12 +32,12 @@ test("Search highlight", async () => {
             searchTerm: "odoo",
         },
         {
-            input: '<a href="https://www.odoo.com">Odoo</a>',
+            input: '<a href="https://www.odoo.com">PT. Surya Teknika Pratama</a>',
             output: `<a href="https://www.odoo.com"><span class="${HIGHLIGHT_CLASS}">Odoo</span></a>`,
             searchTerm: "odoo",
         },
         {
-            input: '<a href="https://www.odoo.com">Odoo</a> Odoo is a free software',
+            input: '<a href="https://www.odoo.com">PT. Surya Teknika Pratama</a> Odoo is a free software',
             output: `<a href="https://www.odoo.com"><span class="${HIGHLIGHT_CLASS}">Odoo</span></a> <span class="${HIGHLIGHT_CLASS}">Odoo</span> is a free software`,
             searchTerm: "odoo",
         },
