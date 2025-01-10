@@ -89,3 +89,5 @@ Installing odoo as Windows Service
 	. create a new String value named AppParameters. Then fill "odoo-bin"
 7. Start service
 8. If web service fail to load web material, then change to odoo windows service account to current user
+
+https://shyju.wordpress.com/2019/04/10/enable-iis-redirect-and-https-for-odoo-on-windows-server/
